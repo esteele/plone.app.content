@@ -135,7 +135,7 @@ class FolderContentsTable(object):
         if hasattr(context.__class__, 'queryCatalog'):
             contentsMethod = context.queryCatalog
         else:
-            contentsMethod = context.getFolderContents
+            contentsMethod = getMultiAdapter((self.context, self.request), name="folderListing")
         return contentsMethod
 
     def folderitems(self):
@@ -221,8 +221,8 @@ class FolderContentsTable(object):
                 brain=obj,
                 url=url,
                 url_href_title=url_href_title,
-                id=obj.getId,
-                quoted_id=urllib.quote_plus(obj.getId),
+                id=obj.getId(),
+                quoted_id=urllib.quote_plus(obj.getId()),
                 path=path,
                 title_or_id=safe_unicode(pretty_title_or_id(
                     plone_utils, obj)),
